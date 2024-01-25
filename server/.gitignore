@@ -1,0 +1,7 @@
+#Ignore envvironment variables
+.env
+
+#Ignore node modules
+/node_modules
+
+/.Ds_Store

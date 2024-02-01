@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 // register route for the user 
-router.post("/register",
+router.post("/sign-up",
     [
         check("userName", "User name is required. ").isString(),
         check("password", "Password id required").isString(),

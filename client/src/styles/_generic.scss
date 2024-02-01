@@ -1,0 +1,54 @@
+@import './variables';
+
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%
+}
+
+a {
+  text-decoration: none;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.blug_header{
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: $text-grey;
+}
+.click_btn{
+    background-color: #fff;
+    color: $text-grey;
+    font-size: 1rem;
+    padding: .5em 2em;
+    border: 1px solid $light-grey;
+    border-radius: 5px;
+    box-shadow: 1px 0px 1px $light-grey;
+    transition: $transition_basic;
+}
+.click_btn:hover{
+    background-color: $light-red;
+    border-color: transparent;
+}
+.coloured_btn{
+    color: #fff;
+    background-color: $light-red;
+    border-radius: 5px;
+    transition: $transition_basic;
+    box-shadow: 1px 0px 1px $light-grey;
+}
+.coloured_btn:hover{
+    background-color: $mid-red;
+    color: #000;
+}

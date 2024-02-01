@@ -1,0 +1,40 @@
+@import '../../styles/variables';
+
+
+.signup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #EFECEC;
+
+    &_form{
+        width: 600px;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        border-radius: 2rem;
+        background-color: #fff;
+        box-shadow: 16px 17px 15px -23px rgba(0,0,0,0.1),-23px -16px 33px -23px rgba(0,0,0,0.1);
+
+        &_logo{
+            width: 4rem;
+            height: 4rem;
+        }
+        &_top_text{
+        color: $light-grey;
+        margin-bottom: 2rem;
+        font-size: .9rem;
+        }
+        &_container_div{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+
+            &_individual_div_middle{
+                grid-column: span 2;
+            }
+        }
+    }
+}

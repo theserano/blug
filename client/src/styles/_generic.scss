@@ -20,6 +20,11 @@ a {
     text-decoration: none;
   }
 }
+.grey_text{
+    color: $light-grey;
+    margin-bottom: 2rem;
+    font-size: .9rem;
+}
 
 .blug_header{
     font-size: 2.5rem;
@@ -51,4 +56,8 @@ a {
 .coloured_btn:hover{
     background-color: $mid-red;
     color: #000;
+}
+.logo{
+    width: 4rem;
+    height: 4rem;
 }

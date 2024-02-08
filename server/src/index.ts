@@ -21,7 +21,7 @@ app.use("/api/users", userRoutes);
 
 
 // mongoose connection
-const connectionString = process.env.MONGODB_LOCAL_CONNECTION_STRING as string;
+const connectionString = process.env.MONGODB_CONNECTION_STRING as string;
 
 mongoose.connect(connectionString);
 const db = mongoose.connection;

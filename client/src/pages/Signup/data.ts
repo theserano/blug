@@ -9,16 +9,17 @@ export const toastStyle: ToastType = {
     padding: '5px',
 }
 
-export interface  SignUpState {
+export interface  SignUpDataState {
     firstName: string,
     lastName: string,
-    username: string,
+    userName: string,
     password: string,
     confirmPassword: string,
+    message?: string,
 }
 
-export interface SignUpDataState {
+export interface SignUpState {
     isLoading: boolean,
-    data: number,
+    data: SignUpDataState,
     error: boolean,
 }

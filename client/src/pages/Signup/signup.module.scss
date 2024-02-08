@@ -7,13 +7,14 @@
     align-items: center;
     height: 100vh;
     background-color: #EFECEC;
+    transition: $transition_basic;
 
     &_form{
         width: 600px;
-        height: 70vh;
+        height: fit-content;
         display: flex;
         flex-direction: column;
-        padding: 2rem;
+        padding: 2rem 2rem 3rem;
         border-radius: 2rem;
         background-color: #fff;
         box-shadow: 16px 17px 15px -23px rgba(0,0,0,0.1),-23px -16px 33px -23px rgba(0,0,0,0.1);
@@ -35,6 +36,12 @@
             &_individual_div_middle{
                 grid-column: span 2;
             }
+        }
+        &_signup_loader{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0rem;
         }
     }
 }

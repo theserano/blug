@@ -9,7 +9,6 @@ import {
   reset,
 } from "../../store/features/signup";
 import { toast } from "react-toastify";
-import { toastStyle } from "./data";
 import {
   selectSignUpError,
   selectSignUpFormData,
@@ -37,25 +36,30 @@ const Signup = () => {
       signupData.confirmPassword === ""
     ) {
       toast.error("A field is empty", {
-        position: "top-right",
-        style: toastStyle,
+        className: "toastStyle",
       });
     } else if (signupData.password.length < 8) {
       toast.warn("Password should be at least 8 characters long.", {
-        style: toastStyle,
+        className: "toastStyle",
       });
     } else if (signupData.password !== signupData.confirmPassword) {
-      toast.error("Password does not match", toastStyle);
+      toast.error("Password does not match", {
+        className: "toastStyle"
+      });
     } else {
       try {
         await dispatch(sendSignUpFormData(signupData));
 
         if (formError) {
-          toast.error("Something went wrong", toastStyle);
+          toast.error("Something went wrong", {
+            className: "toastStyle"
+          });
         }
 
         if (signupData.message === "user has been registered") {
-          toast.success("SignUp Successful", toastStyle);
+          toast.success("SignUp Successful", {
+            className: "toastSuccess"
+          });
           setTimeout(() => {
             navigate("/login");
           }, 3000);

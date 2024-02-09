@@ -61,3 +61,21 @@ a {
     width: 4rem;
     height: 4rem;
 }
+.toastSuccess{
+    background: #C9D7DD;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 20px;
+}
+.toastError{
+    background: #E6A4B4;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 20px;
+}
+.toastWarn{
+    background: #FFEAA7;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 20px;
+}

@@ -7,6 +7,7 @@ import Loader from './components/Utility/loader/Loader';
 
 const Login = lazy(() => import('./pages/Login/Login'));
 const Signup = lazy(() => import('./pages/Signup/Signup'));
+const Home = lazy(() => import ("./pages/Home/Home"));
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
     path: '/sign-up',
     element: <Signup />,
   },
+  {
+    path: '/',
+    element: <Home />
+  }
 ]);
 
 function App() {
@@ -32,7 +37,11 @@ function App() {
 
   return (
     <div className='App'>
-      <ToastContainer />
+      <ToastContainer
+        hideProgressBar={true}
+        autoClose={3000}
+        position='top-right'
+      />
       {loading ? (
         <Loader />
       ) : (

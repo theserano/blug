@@ -25,7 +25,7 @@ export const loginSlice = createSlice({
     name: "login",
     initialState,
     reducers: {
-        setField: (state, action: PayloadAction<{field: keyof loginDataState; value: string}>) => {
+        setLoginField: (state, action: PayloadAction<{field: keyof loginDataState; value: string}>) => {
             const {field, value} = action.payload;
             state.data[field] = value
         },
@@ -40,7 +40,6 @@ export const loginSlice = createSlice({
         })
         .addCase(sendLoginFormData.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.error = false;
             state.data = action.payload;
         })
         .addCase(sendLoginFormData.rejected, (state) => {
@@ -51,6 +50,6 @@ export const loginSlice = createSlice({
 })
 
 
-export  const {setField, reset} = loginSlice.actions
+export  const {setLoginField, reset} = loginSlice.actions
 
 export default loginSlice.reducer;

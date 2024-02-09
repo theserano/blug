@@ -5,10 +5,11 @@ import InputField from "../../components/Utility/inputField/InputField";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { selectLoginError, selectLoginFormData, selectLoginStatus } from "../../store/selector";
-import { toastStyle } from "../Signup/data";
 import { toast } from "react-toastify";
 import { sendLoginFormData } from "../../store/features/login";
 import { PropagateLoader } from "react-spinners";
+import { setLoginField } from "../../store/features/login";
+import { useEffect } from "react";
 
 
 const Login = () => {
@@ -21,39 +22,41 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLoginSubmit = async (event: React.FormEvent) => {
-
     event.preventDefault();
-    
-    if (loginData.userName === "" || loginData.password === ""){
+  
+    if (loginData.userName === "" || loginData.password === "") {
       toast.error("A field is empty", {
-        position: "top-right",
-        style: toastStyle,
+        className: "toastStyle",
       });
-    } else if(loginData.password.length < 8){
+    } else if (loginData.password.length < 8) {
       toast.warn("Password should be at least 8 characters long.", {
-        style: toastStyle,
+        className: "toastStyle",
       });
-    } else{
+    } else {
       try {
         await dispatch(sendLoginFormData(loginData));
-
-        if (loginError) {
-          toast.error("Something went wrong", toastStyle);
-        }
-
-        if (loginData.message === "user has been registered") {
-          toast.success("Login Successful", toastStyle);
-          setTimeout(() => {
-            navigate("/");
-          }, 3000);
-        }
       } catch (error) {
-        // console.log(error)
-        // do nothing
+        // Handle other errors
       }
     }
-
   };
+
+  useEffect(() => {
+    // Now check loginError and loginData.message
+    if (loginError) {
+      toast.error("Something went wrong", {
+        className: "toastStyle"
+      });
+    } 
+    if (loginData.message === "Login successful") {
+      toast.success("Login Successful", {
+        className: "toastSuccess"
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [loginError, loginData.message, navigate])
 
   const goToSign = () => {
     navigate("/sign-up");
@@ -82,7 +85,10 @@ const Login = () => {
               labelId="uname"
               placeholder="enter username..."
               text="text"
-              onChange={() => {}}
+              onChange={(e) => {dispatch(setLoginField({
+                field: 'userName',
+                value: e.target.value
+              }))}}
             />
           </div>
           <div className={styles.login_container_login_form_div}>
@@ -92,7 +98,10 @@ const Login = () => {
               labelId="pass"
               placeholder="enter password..."
               text="password"
-              onChange={() => {}}
+              onChange={(e) => {dispatch(setLoginField({
+                field: 'password',
+                value: e.target.value
+              }))}}
             />
           </div>
 
@@ -113,16 +122,14 @@ const Login = () => {
             margin: "15px 0px 0px",
           }}
         >
-          Don't have an account?{" "}
+          Don't have an account? 
           <span
             onClick={goToSign}
             style={{
               color: "#0B60B0",
               cursor: "pointer",
             }}
-          >
-            {" "}
-            SignUp
+          > SignUp
           </span>
         </p>
         <div className={styles.login_form_login_loader}>

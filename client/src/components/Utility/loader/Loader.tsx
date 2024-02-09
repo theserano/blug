@@ -7,7 +7,7 @@ const Loader = () => {
             <HashLoader
                 color="#FCAEAE"
                 cssOverride={{
-                    backgroundColor: '#FFFBF5'
+                    backgroundColor: '#1E1E1E'
                 }}
                 size={150}
             />

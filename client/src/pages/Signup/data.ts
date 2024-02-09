@@ -1,13 +1,13 @@
 
-interface ToastType {
-    [key: string]: string,
-}
+// interface ToastType {
+//     [key: string]: string,
+// }
 
-export const toastStyle: ToastType = {
-    color: '#000',
-    fontSize: '13px',
-    padding: '5px',
-}
+// export const toastStyle: ToastType = {
+//     color: '#000',
+//     fontSize: '13px',
+//     padding: '5px',
+// }
 
 export interface  SignUpDataState {
     firstName: string,

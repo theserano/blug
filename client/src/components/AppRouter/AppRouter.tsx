@@ -14,7 +14,7 @@ const AppRouter = () => {
         <section className="app_logo">
                 <img src={logo} alt="logo" />
             <h1 className="logo_text">Blug</h1>
-        </section>
+        </section> 
 
         <section className="app_sidebar">
 

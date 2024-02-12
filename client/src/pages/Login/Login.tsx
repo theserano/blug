@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { sendLoginFormData } from "../../store/features/login";
 import { PropagateLoader } from "react-spinners";
 import { setLoginField } from "../../store/features/login";
-import { useEffect } from "react";
+import { useEffect} from "react";
 
 
 const Login = () => {
@@ -34,7 +34,8 @@ const Login = () => {
       });
     } else {
       try {
-        await dispatch(sendLoginFormData(loginData));
+        await dispatch(sendLoginFormData(loginData))
+      
       } catch (error) {
         // Handle other errors
       }
@@ -52,6 +53,9 @@ const Login = () => {
       toast.success("Login Successful", {
         className: "toastSuccess"
       });
+      if(loginData.userId){
+        localStorage.setItem('userId', loginData.userId)
+      }
       setTimeout(() => {
         navigate("/");
       }, 3000);
@@ -61,6 +65,24 @@ const Login = () => {
   const goToSign = () => {
     navigate("/sign-up");
   }
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if(token){
+  //         await getAuthenticationToken();
+  //       }else{
+  //         console.log('not yet logged in');
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  
+  //   fetchData();
+  // }, [token]);
+  
 
   return (
     <div className={styles.login_container}>

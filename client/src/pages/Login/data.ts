@@ -3,7 +3,10 @@
 export interface loginDataState {
     userName: string, 
     password: string,
-    message?: string
+    message?: string,
+    userId?: string,
+    firstName?: string,
+    lastName?: string,
 }
 
 export interface loginState {

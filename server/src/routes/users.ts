@@ -32,16 +32,16 @@ router.post("/sign-up",
             await user.save();
 
             // create a jwt token to use for the user
-            const token = jwt.sign({userId: user.id},
-                process.env.JWT_SECRET_KEY as string,
-                {
-                    expiresIn: "1d",
-                });
-            res.cookie("auth_token", token,{
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                maxAge: 86400000,
-            });
+            // const token = jwt.sign({userId: user.id},
+            //     process.env.JWT_SECRET_KEY as string,
+            //     {
+            //         expiresIn: "1d",
+            //     });
+            // res.cookie("auth_token", token,{
+            //     httpOnly: true,
+            //     secure: process.env.NODE_ENV === "production",
+            //     maxAge: 86400000,
+            // });
             res.status(200).json({message: "user has been registered"});
         } catch (error) {
             console.log(error);
@@ -51,43 +51,51 @@ router.post("/sign-up",
 
 // log in link for the user
 router.post("/login", [
-    check("userName", "User name must be provided").isString(),
-    check("password", "password must be provided").isString()
-], async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        res.status(400).json({message: errors.array()})
-    }
-    
-    const { userName, password } = req.body;
-    try {
-        const user = await User.findOne({userName});
-
-        if(!user){
-            return res.status(404).json({message: "Invalid credentials"});
+    check("userName", "UserName is required").isString(), 
+    check("password", "Password with 6 or more characters").isLength({min: 6}),],
+    async (req: Request, res: Response) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({message: errors.array()})
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if(!isMatch){
-            return res.status(400).json({message: "Invalid Credentials"});
+        const {userName, password} = req.body;
+
+        try {
+            const user = await User.findOne({userName})
+            if(!user){
+                return res.status(400).json({message: "Invalid Credentials"});
+            }
+
+            const isMatch = await bcrypt.compare(password, user.password)
+            if(!isMatch){
+                return res.status(400).json({message: "Invalid Credentials"});
+            }
+
+            const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET_KEY as string, {
+                expiresIn: "1d",
+            })
+
+            res.cookie("auth_token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                maxAge: 8640000,
+            })
+
+            res.status(200).json({
+                userId: user._id,
+                userName: userName,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                message: 'Login successful'
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({message: "Something went wrong"})
         }
-
-        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET_KEY as string, {
-            expiresIn: "1d",
-        })
-        res.cookie("auth_token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 8640000,
-        })
-
-        res.status(200).json({message: "Login successful"});
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({message: "Something went wrong"});
     }
-})
+);
 
 
 export default router;

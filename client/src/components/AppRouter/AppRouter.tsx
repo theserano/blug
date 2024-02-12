@@ -5,9 +5,26 @@ import { Link } from "react-router-dom";
 import { GoHomeFill } from "react-icons/go";
 import { SiAzuredataexplorer } from "react-icons/si";
 import { CiLogout } from "react-icons/ci";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
+import { selectLoginFormData } from "../../store/selector";
+
+const API_BASE_URL = 'http://localhost:5000'
 
 
 const AppRouter = () => {
+
+    const navigate = useNavigate();
+
+    const loginData = useAppSelector(selectLoginFormData);
+
+    const handleLogout = () => {
+        const response = axios.post(`${API_BASE_URL}/api/auth/logout`)
+        console.log(response);
+        navigate("/login");
+    }
+
   return (
     <div className="appRouter">
         
@@ -23,8 +40,13 @@ const AppRouter = () => {
                     <img src={profile} alt="profile" />
                 </div>
                 <div className="profile_text">
-                    <p className="pf">First Name</p>
-                    <p className="pu">@Username</p>
+                    <p className="pf">{
+                        (loginData.firstName && loginData.lastName) ? 
+                        `${loginData.firstName} ${loginData.lastName}` :  "Guest"
+                    }</p>
+                    <p className="pu">@{
+                        loginData.userName ? `${loginData.userName}` : `Guest`
+                    }</p>
                 </div>
             </div>
 
@@ -38,7 +60,9 @@ const AppRouter = () => {
                     <span className="sl_icon"><SiAzuredataexplorer /></span>
                     <span className="sl_text">Explore</span>
                 </Link>
-                <Link to="/" className="sidebar_link">
+                <Link to="/login"
+                 onClick={handleLogout}
+                 className="sidebar_link">
                     <span className="sl_icon"><CiLogout /></span>
                     <span className="sl_text">Logout</span>
                 </Link>

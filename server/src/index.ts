@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import postRoutes from "./routes/posts";
 import userRoutes from "./routes/users";
+import authRoutes from "./routes/auth";
 
 // basic configurations
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({extended: true}));
 // route connections
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
+app.use('/api/auth', authRoutes)
 
 
 // mongoose connection
